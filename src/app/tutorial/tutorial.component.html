@@ -1,0 +1,64 @@
+<div>
+  <mat-card>
+    <h2>{{tutorial?.titel}}</h2>
+  </mat-card>
+
+  <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+    <mat-step *ngFor="let step of tutorial?.steps">
+      <ng-template matStepLabel>{{step.titel}}</ng-template>
+      <mat-card>
+        <mat-accordion *ngFor="let childStep of step.tutorialChildSteps">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{childStep.titel}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{panelOpenState ? 'weniger anzeigen' : 'mehr anzeigen'}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-grid-list cols="2" rowHeight="4:1">
+                <mat-grid-tile>
+                <!--  <div *ngIf=isImage(childStep.resource)>
+                    <img ng-src={{image}}>
+                  </div> -->
+
+                </mat-grid-tile>
+                <mat-grid-tile>{{childStep.description}}</mat-grid-tile>
+                <!-- <mat-grid-tile>
+                  <vg-player>
+                    <vg-controls>
+                      <vg-play-pause></vg-play-pause>
+                      <vg-playback-button></vg-playback-button>
+
+                      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+                      <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                      </vg-scrub-bar>
+
+                      <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+                      <vg-mute></vg-mute>
+                      <vg-volume></vg-volume>
+                    </vg-controls>
+
+                    <audio #media [vgMedia]="media" id="singleAudio" preload="auto" crossorigin>
+                      <source src="{{childStep.audio}}" type="audio/mp3">
+                    </audio>
+                  </vg-player>
+                </mat-grid-tile>-->
+              </mat-grid-list>
+            </p>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <button mat-button (click)="myFunc()">Fertig!</button>
+      </mat-card>
+      <div>
+        <button mat-button matStepperNext>Bereit für den nächsten Arbeitsschritt</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
