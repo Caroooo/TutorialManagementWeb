@@ -24,7 +24,7 @@ import {Injectable} from "@angular/core";
      getTutorialById(id: number) : Observable<Tutorial> {
         return this.http.get(this.apiUrl + "/" + id)
         .map((response: Response) => {
-            return <Tutorial[]>response.json();
+            return <Tutorial>response.json();
         })
         .catch(this.handleError);
      }

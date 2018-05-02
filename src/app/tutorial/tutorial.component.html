@@ -3,8 +3,9 @@
     <h2>{{tutorial?.titel}}</h2>
   </mat-card>
 
-  <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
-    <mat-step *ngFor="let step of tutorial?.steps">
+  <mat-horizontal-stepper [linear]="true" #stepper> 
+
+    <mat-step *ngFor="let step of tutorial?.steps" [completed]="getStepState()">
       <ng-template matStepLabel>{{step.titel}}</ng-template>
       <mat-card>
         <mat-accordion *ngFor="let childStep of step.tutorialChildSteps">
@@ -13,9 +14,9 @@
               <mat-panel-title>
                 {{childStep.titel}}
               </mat-panel-title>
-              <mat-panel-description>
+            <!--  <mat-panel-description>
                 {{panelOpenState ? 'weniger anzeigen' : 'mehr anzeigen'}}
-              </mat-panel-description>
+              </mat-panel-description> -->
             </mat-expansion-panel-header>
             <p>
               <mat-grid-list cols="2" rowHeight="4:1">
@@ -54,10 +55,10 @@
             </p>
           </mat-expansion-panel>
         </mat-accordion>
-        <button mat-button (click)="myFunc()">Fertig!</button>
+        <button mat-button (click)="setCompleted()">Fertig! Ich habe alle Schritte durchgeführt!</button>
       </mat-card>
-      <div>
-        <button mat-button matStepperNext>Bereit für den nächsten Arbeitsschritt</button>
+      <div>       
+       <button mat-button [disabled]="!stepDone()" (click)="nextStep()">gehe zu nächsten Arbeitsschritt</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
