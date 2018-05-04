@@ -1,0 +1,9 @@
+<div *ngIf="isImage()">
+    <img src="{{file}}" alt="{{file}}" style="max-width:250px" />
+</div>
+<div *ngIf="isVideo()">
+    <video-component data={{file}}></video-component>
+</div>
+<div *ngIf="isAudio()">
+    <audio-component data={{file}}></audio-component>
+</div>
