@@ -1,0 +1,17 @@
+<mat-card>
+    <h3>Neuer Detail-Arbeitsschritt für {{tutorialStepTitel}}</h3>
+        <div class="example-container">
+
+            <mat-form-field>
+                <input #childName matInput type="text" placeholder="Detail-Arbeitsschritt Titel">
+            </mat-form-field>
+            <mat-form-field>
+                <textarea #childDescription matInput type="text" placeholder="Ausführliche Beschreibung des detailierten Arbeitsschrittes. Beschreibe hier ausführlich welcher Handgriff zu erledigen ist"></textarea>
+            </mat-form-field>
+            <div>
+                <h4>Resource</h4>
+                <p style="color:lightgrey">Zusätzlich zu der Beschreibung des Arbeitsschrittes kann auch noch ein Bild, eine Video oder eine Audio Datei hochgeladen werden.</p>
+                <form-upload #resource></form-upload>
+            </div>
+        </div>
+</mat-card>

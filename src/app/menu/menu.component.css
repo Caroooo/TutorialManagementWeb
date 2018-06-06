@@ -1,0 +1,15 @@
+.account{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.menu{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.toolbar {
+    flex: 1 1 auto;
+  }

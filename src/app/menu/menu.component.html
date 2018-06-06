@@ -1,0 +1,28 @@
+<mat-toolbar>
+    <button mat-button [matMenuTriggerFor]="menu" class="menu">
+        <i class="material-icons">
+            menu
+        </i>
+    </button>
+    <span class="toolbar"></span>
+    {{user?.userName}}
+    <button mat-button (click)="loadAccount()" class="account">
+        <i class="material-icons">
+            account_circle
+        </i>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="goToCreateTutorial()">Tutorial hinzufügen</button>
+        <button mat-menu-item (click)="goBack()">Startseite</button>
+    </mat-menu>
+  
+</mat-toolbar>
+
+<tutorial-create *ngIf="create"></tutorial-create>
+<div *ngIf="!create">
+    <mat-card *ngIf="!account">
+        <h1 >Die Maschine Arbeitet. Es kann daher momentan kein Tutorial durgeführt werden</h1>
+    </mat-card>
+    <user-info *ngIf="account" [user]=user></user-info>
+
+</div>
