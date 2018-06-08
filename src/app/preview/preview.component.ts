@@ -107,7 +107,7 @@ export class PreviewComponent implements OnInit {
   }
 
   hasNextStep(): boolean {
-    if (this.stepper.selectedIndex < this.stepper._steps.length - 1) {
+     if (this.stepper.selectedIndex < this.stepper._steps.length - 1) {
       return true;
     }
     return false;
@@ -119,7 +119,7 @@ export class PreviewComponent implements OnInit {
     return false;
   }
   done(): void {
-    this.snackBar.open("all Stepps are done", "done", {
+    this.snackBar.open("Danke! Das Tutorial wurde abgeschlossen.","", {
       duration: 2000,
     });
   }

@@ -8,11 +8,24 @@
   }
 
   button {
-    background-color: #c2185b;
+    background-color: #302f2f;
     color: white;
-    border: none;
+    border: #424242;
     border-radius: 4px;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+  }
+
+  .removeButton{
+    background-color: #8223ff;
+    position: absolute;
+    right: 5%;
+    margin: 1;
+    z-index: +1;
+  }
+
+  .addStep{
+    background-color:#8223ff;
+    color: white;
   }

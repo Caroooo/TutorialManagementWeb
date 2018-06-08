@@ -29,6 +29,11 @@ import { TutorialChildStepCreateComponent } from "../tutorial-child-step-create/
   
     }
 
+    removeStep() : void{
+      this.steps[this.index] = false;
+      this.index = this.index - 1;
+  }
+
     loadChildStepCreate() : void {
       this.steps[this.index] = true;
       this.index = this.index + 1;

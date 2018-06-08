@@ -10,4 +10,10 @@ button {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+    vertical-align: baseline;
   }
+  .done{
+    position: absolute;
+    right: 5%;
+  }
+

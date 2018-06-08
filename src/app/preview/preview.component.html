@@ -1,49 +1,58 @@
 <div>
-  <mat-card>
-    <h2>{{tutorial?.titel}}</h2>
-  </mat-card>
- <mat-card>
-    <p>{{tutorial?.shortDescription}}
-    </p>
-  </mat-card>
-   <mat-horizontal-stepper #stepper>
-    <ng-template matStepperIcon="edit">
-      <mat-icon>check</mat-icon>
-    </ng-template>
-    <mat-step *ngFor="let step of tutorial?.steps">
-      <ng-template matStepLabel>{{step.titel}}</ng-template>
-      <mat-card>{{step.shortDescription}}</mat-card>
-      <mat-card>
-        <mat-accordion *ngFor="let childStep of step?.tutorialChildSteps">
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{childStep.titel}}
-              </mat-panel-title>
-          
-            </mat-expansion-panel-header>
-            <p>
-              <mat-grid-list cols="2" rowHeight="4:1">
-                <mat-grid-tile>
-                  <div *ngIf="hasResource(childStep)">
-                    <resource file={{resourceContent[getIdOfResourceContent(childStep.resource)]}} [type]="childStep.resource.resourceType"></resource>
-                  </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <div>
-                    <p>{{childStep.description}} </p>
-                  </div>
-                </mat-grid-tile>
-              </mat-grid-list>
-            </p>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </mat-card>
-    <!--  <div>
-        <button *ngIf="hasPrevStep()" mat-button matStepperPrevious>Zurück</button>
-        <button *ngIf="hasNextStep()" mat-button matStepperNext>Fertig! Gehe zu nächsten Arbeitsschritt</button>
-        <button *ngIf="isLastStep()" mat-button matStepperSubmit (click)="done()">Fertig!</button>
-      </div>-->
-    </mat-step>
-  </mat-horizontal-stepper>
-</div>
+    <mat-card>
+      <h2>{{tutorial?.titel}}</h2>
+    </mat-card>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{tutorial?.shortDescription}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+  
+        <mat-horizontal-stepper #stepper>
+          <ng-template matStepperIcon="edit">
+            <mat-icon>check</mat-icon>
+          </ng-template>
+          <mat-step *ngFor="let step of tutorial?.steps">
+            <ng-template matStepLabel>{{step.titel}}</ng-template>  
+  
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{step.shortDescription}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-accordion *ngFor="let childStep of step.tutorialChildSteps">
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{childStep.titel}}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>
+                      <mat-grid-list cols="2" rowHeight="4:1">
+                        <mat-grid-tile>
+                          <div *ngIf="hasResource(childStep)">
+                            <resource file={{resourceContent[getIdOfResourceContent(childStep.resource)]}} [type]="childStep.resource.resourceType"></resource>
+                          </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                          <div>
+                            <p>{{childStep.description}} </p>
+                          </div>
+                        </mat-grid-tile>
+                      </mat-grid-list>
+                    </p>
+                  </mat-expansion-panel>
+                </mat-accordion>
+  
+              </mat-expansion-panel>
+            </mat-accordion>
+  
+          </mat-step>
+        </mat-horizontal-stepper>
+      </mat-expansion-panel>
+    </mat-accordion>  
+  </div>

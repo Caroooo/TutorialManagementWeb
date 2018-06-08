@@ -9,27 +9,31 @@ import { UserService } from "../../services/user-service";
     styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-   user: User;
+    user: User;
 
     create: boolean = false;
     account: boolean = false;
+    tutorialAvailable: boolean = false;
 
-    constructor( private route: ActivatedRoute, private userService: UserService) {
-        this.route.params.subscribe( params => this.getUser(params['user'])); 
-        
+    constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
+        this.route.params.subscribe(params => this.getUser(params['user']));
+
     }
 
     ngOnInit(): void {
     }
 
-    goToCreateTutorial() : void{
-       this.account = false;
+    goToCreateTutorial(): void {
+        this.account = false;
         this.create = true;
+        this.tutorialAvailable = false;
+
     }
 
-    goBack(): void{
+    goBack(): void {
         this.create = false;
         this.account = false;
+        this.tutorialAvailable = false;
     }
 
     getUser(id: number): void {
@@ -39,8 +43,25 @@ export class MenuComponent implements OnInit {
         )
     }
 
-    loadAccount() : void {
+    hasWriteRights(): boolean {
+        if (this.user != null && this.user != undefined) {
+            return this.user.canWrite;
+        }
+        return false;
+    }
+    logout(): void {
+        this.router.navigate(['/login']);
+
+    }
+
+    loadAccount(): void {
         this.create = false;
         this.account = true;
+    }
+
+    showTutorial() {
+        this.create = false;
+        this.account = false;
+        this.tutorialAvailable = true;
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -6,13 +6,15 @@ import { TutorialService } from '../../services/tutorial-service'
 import { Tutorial } from '../../model/tutorial';
 import { Resource } from '../../model/resource';
 import { ResourceType } from '../../model/resource-type';
-import { MatStepper, MatSnackBar } from '@angular/material';
+import { MatStepper, MatSnackBar, MatExpansionModule, MatExpansionPanel } from '@angular/material';
 import { TutorialStep } from '../../model/tutorial-step';
 import { Observable } from 'rxjs';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { AsyncPipe } from '@angular/common';
 import { TutorialChildStep } from '../../model/tutorial-child-step';
 import {VideoComponent} from '../video/video.component';
+import { User } from '../../model/user';
+import { UserService } from '../../services/user-service';
 
 
 @Component({
@@ -22,6 +24,7 @@ import {VideoComponent} from '../video/video.component';
 })
 export class TutorialComponent implements OnInit {
   @ViewChild('stepper') stepper;
+  @Input() user : User;
 
   stepStates: boolean[];
   stepsInitializied: boolean = false;
@@ -29,14 +32,15 @@ export class TutorialComponent implements OnInit {
   tutorial: Tutorial;
   resourceContent: string[] = new Array();
   resources: Resource[];
+  laymanInformation: number = 0;
+  rookieInformation: number = 0;
 
-
-  constructor(private domSanitizer: DomSanitizer, private _formBuilder: FormBuilder, private tutorialService: TutorialService, public snackBar: MatSnackBar) {
+  constructor(private domSanitizer: DomSanitizer, private _formBuilder: FormBuilder, private tutorialService: TutorialService,private userService: UserService,  public snackBar: MatSnackBar) {
 
   }
 
   ngOnInit() {
-    this.getTutorialById(1);
+    this.getTutorialById(11);
 
   }
 
@@ -88,8 +92,9 @@ export class TutorialComponent implements OnInit {
   }
 
   getTutorialById(id: number): void {
-    this.tutorialService.getTutorialById(id).subscribe(
-      resultArray => this.init(resultArray),
+    this.tutorialService.getTutorialById(id)
+    .subscribe(
+      result => this.init(result),      
       error => console.log("Error :: " + error)
     )
   }
@@ -119,7 +124,18 @@ export class TutorialComponent implements OnInit {
     return false;
   }
   done(): void {
-    this.snackBar.open("all Stepps are done", "done", {
+    //calc number of child steps
+    var chidStepNum = 0;
+    for(let s of this.tutorial.steps){
+      for(let child of s.tutorialChildSteps){
+          chidStepNum = chidStepNum + 1;
+      }
+    }
+    this.user.rookieInformation = (this.rookieInformation / chidStepNum) + this.user.rookieInformation;
+    this.user.laymanInformation = this.laymanInformation + this.user.laymanInformation;
+    this.userService.updateInformationCount(this.user);
+
+    this.snackBar.open("Danke " +this.user.userName + "! Das Tutorial wurde abgeschlossen.","", {
       duration: 2000,
     });
   }
@@ -130,6 +146,41 @@ export class TutorialComponent implements OnInit {
       });
     }
   }
+
+
+  clickExpansionPanel(childStep: TutorialChildStep){
+    console.log(childStep.id);
+  }
+  increaseLaymanInformationCount() :void {
+    this.laymanInformation = this.laymanInformation + 3;
+  }
+
+  decreaseLaymanInformationCount() :void {
+    this.laymanInformation = this.laymanInformation - 1;
+  } 
+
+  showLaymanInformation(): boolean{
+    if(this.user.laymanInformation >= 3){
+      return true;
+    }
+    return false;
+  }
+
+  increaseRookieInformationCount() :void {
+    this.rookieInformation = this.rookieInformation + 3;
+  }
+
+  decreaseRookieInformationCount() :void {
+    this.rookieInformation = this.rookieInformation - 1;
+  } 
+
+  showRookieInformation(): boolean{
+    if(this.user.rookieInformation >= 6){
+      return true;
+    }
+    return false;
+  }
+  
   hasResource(childStep: TutorialChildStep): boolean{
     if(childStep != null){
       if(childStep.resource != null){

@@ -1,9 +1,7 @@
 <div [hidden]="preview">
     <mat-card>
-        <h1>Neues Tutorial hinzufügen
-            <button (click)="loadPreview()" mat-button>Vorschau</button>
-            <button (click)="submit()" mat-button>Tutorial speichern</button>
-        </h1>
+        <h1>Neues Tutorial hinzufügen</h1>
+
         <form>
             <div class="example-container">
 
@@ -14,14 +12,51 @@
                     <textarea #tutorialDescription matInput placeholder="Kurze Beschreibung. Was ist das Ziel dieses Tutorials?"></textarea>
                 </mat-form-field>
                 <div *ngFor="let s of steps">
+                    <button *ngIf="s" (click)="removeStep()" mat-button class="removeButton" matTooltip="Arbeitsschritt entfernen">
+                        <i class="material-icons">
+                            delete
+                        </i>
+                    </button>
                     <tutorial-step-create #tutorialStepCreate *ngIf="s" [tutorialTitel]="getTutorialTitel()"></tutorial-step-create>
                 </div>
-                <button (click)="loadStepCreate()" mat-button>Neuen Arbeitsschritt hinzufügen</button>
+                <button (click)="loadStepCreate()" mat-button>
+                    Arbeitsschritt hinzufügen
+                </button>
             </div>
+
         </form>
+        <div>
+            <button (click)="loadPreview()" mat-button matTooltip="Vorschau" class="preview">
+                <i class="material-icons">
+                    visibility
+                </i>
+            </button>
+            <button (click)="submit()" mat-button matTooltip="Tutorial speichern" class="save">
+                <i class="material-icons">
+                    save
+                </i>
+            </button>
+        </div>
+        <br/>
+        <br/>
+        <br/>
     </mat-card>
 </div>
 <div [hidden]="!preview">
-    <button (click)="closePreview()" mat-button>Vorschau schließen</button>
     <preview *ngIf="preview" [tutorialInput]="loadTutorial()"></preview>
+    <mat-card>
+        <button (click)="closePreview()" mat-button matTooltip="Vorschau schließen" class="preview">
+            <i class="material-icons">
+                visibility_off
+            </i>
+        </button>
+        <button (click)="submit()" mat-button matTooltip="Tutorial speichern" class="save">
+            <i class="material-icons">
+                save
+            </i>
+        </button>
+        <br>
+        <br>
+        <br>
+    </mat-card>
 </div>

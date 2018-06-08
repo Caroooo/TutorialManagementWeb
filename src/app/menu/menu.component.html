@@ -1,28 +1,61 @@
 <mat-toolbar>
-    <button mat-button [matMenuTriggerFor]="menu" class="menu">
+    <button mat-button [matMenuTriggerFor]="menu" class="menu"  matBadge="8" matBadgePosition="before" matBadgeColor="accent">
         <i class="material-icons">
             menu
         </i>
     </button>
     <span class="toolbar"></span>
-    {{user?.userName}}
-    <button mat-button (click)="loadAccount()" class="account">
+
+
+
+    <button mat-button [matMenuTriggerFor]="account" class="account"  matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+
         <i class="material-icons">
             account_circle
         </i>
+        <h3> {{user?.userName}}</h3>
     </button>
+
+
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="goToCreateTutorial()">Tutorial hinzufügen</button>
-        <button mat-menu-item (click)="goBack()">Startseite</button>
+        <button *ngIf="hasWriteRights()" mat-menu-item (click)="goToCreateTutorial()">
+            <i class="material-icons">
+                create
+            </i>
+            Tutorial hinzufügen
+        </button>
+        <button mat-menu-item (click)="goBack()">
+            <i class="material-icons">
+                home
+            </i>
+            Startseite
+        </button>
+        <button mat-menu-item (click)="showTutorial()">
+            <i class="material-icons">
+                live_tv
+            </i>
+            Beispiel Tutorial ansehen
+        </button>
     </mat-menu>
-  
+    <mat-menu #account="matMenu">
+        <button mat-menu-item (click)="logout()">
+            <i class="material-icons">
+                exit_to_app
+            </i>
+            logout
+        </button>
+    </mat-menu>
 </mat-toolbar>
 
-<tutorial-create *ngIf="create"></tutorial-create>
-<div *ngIf="!create">
-    <mat-card *ngIf="!account">
-        <h1 >Die Maschine Arbeitet. Es kann daher momentan kein Tutorial durgeführt werden</h1>
-    </mat-card>
-    <user-info *ngIf="account" [user]=user></user-info>
+<div *ngIf="!tutorialAvailable">
+    <tutorial-create *ngIf="create"></tutorial-create>
+</div>
+<app-tutorial *ngIf="tutorialAvailable" [user]=user></app-tutorial>
 
+<div *ngIf="!tutorialAvailable">
+    <div *ngIf="!create">
+        <mat-card>
+            <h1>Die Maschine Arbeitet. Es kann daher momentan kein Tutorial durgeführt werden</h1>
+        </mat-card>
+    </div>
 </div>

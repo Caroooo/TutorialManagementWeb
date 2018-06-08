@@ -30,6 +30,7 @@ export class TutorialService {
     }
 
     getTutorials(): Observable<Tutorial[]> {
+
         return this.httpClient
             .get(this.apiUrl)
             .map((response: Response) => {
@@ -39,66 +40,37 @@ export class TutorialService {
     }
 
     getTutorialById(id: number): Observable<Tutorial> {
-        return this.httpClient.get(this.apiUrl + "/" + id)
+        return this.httpClient
+            .get(this.apiUrl + "/" + id)
             .map((response: Response) => {
-                return <Tutorial>response.json();
+                return response;
             })
             .catch(this.handleError);
     }
 
     getResourceFile(resourceId: number): Observable<any> {
         return this.httpClient
-            .get(this.apiUrl + "/resources/" + resourceId, { responseType: 'text' });
+            .get(this.apiUrl + "/resources/file/" + resourceId, { responseType: 'text' });
     }
 
     getResource(resourceId: number): Observable<Resource> {
         return this.httpClient
             .get(this.apiUrl + "/resources/" + resourceId).map((response: Response) => {
-                return <Resource>response.json();
+                return response;
             })
             .catch(this.handleError);;
     }
-
-    /*   postResource(file: File): Observable<HttpEvent<{}>> {
-           const formdata: FormData = new FormData();
-        
-           formdata.append('file', file);
-        
-           const req = new HttpRequest('POST', this.apiUrl + "/resources/", formdata, {
-             reportProgress: true,
-             responseType: 'text'
-           });     
-          // return this.httpClient.request(req);
-           this.httpClient.post(this.apiUrl + "/resources/", formdata).map(resp => console.log(resp));
-         }*/
 
     postResource(file: File) {
         const formdata: FormData = new FormData();
 
         formdata.append('file', file);
 
-        const req = new HttpRequest('POST', this.apiUrl + "/resources/", formdata, {
-            reportProgress: true,
-            responseType: 'text'
-        });
-        //  return this.httpClient.request(req);
-
         return this.httpClient.post(this.apiUrl + "/resources/", formdata, { observe: 'response' })
             .map((response: HttpResponse<any>) => {
                 return parseInt(response.headers.get("Location").replace(this.apiUrl + "/resources/", ""));
             });
 
-    }
-
-    postResourcePromise(file: File): Promise<number> {
-        const formdata: FormData = new FormData();
-        formdata.append('file', file);
-        return this.httpClient
-            .post(this.apiUrl + "/resources/", formdata, { observe: 'response' })
-            .map((response: HttpResponse<any>) => {
-                return parseInt(response.headers.get("Location").replace(this.apiUrl + "/resources/", ""));
-            })
-            .toPromise();
     }
 
     private extractData(res: HttpResponse<any>) {

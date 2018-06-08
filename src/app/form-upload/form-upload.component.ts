@@ -16,9 +16,13 @@ export class FormUploadComponent implements OnInit {
   progress: { percentage: number } = { percentage: 0 };
   resourceId: number;
 
-  constructor(private tutorialService: TutorialService) { }
+  constructor(private tutorialService: TutorialService) {
+    console.log("form-upload Constructor");
+
+   }
 
   ngOnInit() {
+    console.log("form-upload ngOInit");
   }
 
   selectFile(event) {

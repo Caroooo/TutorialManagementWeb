@@ -12,6 +12,7 @@ import { TutorialChildStepCreateView } from "../../model/tutorial-child-step-cre
 import { TutorialStepCreateView } from "../../model/tutorial-step-create-view";
 import { TutorialCreateView } from "../../model/tutorial-create-view";
 import { TutorialChildStepCreateComponent } from "../tutorial-child-step-create/tutorial-child-step-create.component";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
     selector: 'tutorial-create',
@@ -28,13 +29,18 @@ export class TutorialCreateComponent implements OnInit {
     tutorial: TutorialCreateView;
     steps: boolean[];
     index: number = 0;
-    constructor(private _formBuilder: FormBuilder, private tutorialService: TutorialService) {
+    constructor(private _formBuilder: FormBuilder, private tutorialService: TutorialService, public snackBar: MatSnackBar) {
         this.steps = new Array();
         this.steps[0] = false;
     }
 
     ngOnInit() {
 
+    }
+
+    removeStep() : void{
+        this.steps[this.index] = false;
+        this.index = this.index - 1;
     }
 
     loadStepCreate(): void {
@@ -63,7 +69,6 @@ export class TutorialCreateComponent implements OnInit {
         var stepIndex = 0;
         var step = this.tutorialStepCreate.toArray()[stepIndex];
         var tutorialStep = new TutorialStepCreateView();
-        console.log("create step with index: " + stepIndex);
         tutorialStep.titel = step.stepName.nativeElement.value;
         tutorialStep.shortDescription = step.stepDescription.nativeElement.value;
         //create Child step
@@ -73,30 +78,24 @@ export class TutorialCreateComponent implements OnInit {
             var index = 0;
             var childStep = step.tutorialStepChildCreate.toArray()[index];
             var tutorialChildStep = new TutorialChildStepCreateView();
-            console.log("creat child step with index: " + index)
             tutorialChildStep.titel = childStep.childName.nativeElement.value;
             tutorialChildStep.description = childStep.childDescription.nativeElement.value;
             //post resource to server
-            console.log("check if there is a selected file: " + childStep.resource.currentFileUpload);
             if (childStep.resource.currentFileUpload != null && childStep.resource.currentFileUpload != undefined) {
-                console.log("child with index " + index + " has a ressource");
                 childStep.resource.upload().subscribe(
                     result => {
                         tutorialChildStep.resourceId = result;
-                        console.log(result);
                         tutorialStep.tutorialChildSteps.push(tutorialChildStep);
                     },
                     error => console.log("Error :: " + error),
                     () => {
 
-                        console.log("PUSHED!");
                         index = index + 1;
                         this.goToNextChildStep(index, step.tutorialStepChildCreate.toArray(), tutorialStep, stepIndex);
                     }
                 );
 
             } else {
-                console.log("child with index " + index + " has no ressource");
                 tutorialStep.tutorialChildSteps.push(tutorialChildStep);
                 index = index + 1;
                 this.goToNextChildStep(index, step.tutorialStepChildCreate.toArray(), tutorialStep, stepIndex);
@@ -116,30 +115,25 @@ export class TutorialCreateComponent implements OnInit {
             tutorialChildStep.description = childStep.childDescription.nativeElement.value;
             //post resource to server
             if (childStep.resource.currentFileUpload != null && childStep.resource.currentFileUpload != undefined) {
-                console.log("child with index " + i + " has a ressource");
                 childStep.resource.upload().subscribe(
                     result => {
                         tutorialChildStep.resourceId = result;
-                        console.log(result);
                         tutorialStep.tutorialChildSteps.push(tutorialChildStep);
                     },
                     error => console.log("Error :: " + error),
                     () => {
 
-                        console.log("PUSHED!");
                         i = i + 1;
                         this.goToNextChildStep(i, childSteps, tutorialStep, stepIndex);
                     }
                 );
 
             } else {
-                console.log("child with index " + i + " has no ressource");
                 tutorialStep.tutorialChildSteps.push(tutorialChildStep);
                 i = i + 1;
                 this.goToNextChildStep(i, childSteps, tutorialStep, stepIndex);
             }
         } else {
-            console.log("step has no more childs");
             this.tutorial.steps.push(tutorialStep);
             stepIndex = stepIndex + 1;
             if (stepIndex < this.tutorialStepCreate.toArray().length) {
@@ -150,7 +144,6 @@ export class TutorialCreateComponent implements OnInit {
                 tutorialStep.shortDescription = step.stepDescription.nativeElement.value
                 this.goToNextChildStep(0, step.tutorialStepChildCreate.toArray(), tutorialStep, stepIndex);
             } else {
-                console.log("no more steps. will post now");
                 this.tutorialService.postTutorial(this.tutorial);
             }
         }
@@ -170,10 +163,7 @@ export class TutorialCreateComponent implements OnInit {
         tutorial.steps = [];
 
         for (var step of this.tutorialStepCreate.toArray()) {
-            var stepIndex = 0;
-            var step = this.tutorialStepCreate.toArray()[stepIndex];
             var tutorialStep = new TutorialStep();
-            console.log("create step with index: " + stepIndex);
             tutorialStep.titel = step.stepName.nativeElement.value;
             tutorialStep.shortDescription = step.stepDescription.nativeElement.value;
             //create Child step
@@ -184,14 +174,8 @@ export class TutorialCreateComponent implements OnInit {
                     var tutorialChildStep = new TutorialChildStep();
                     tutorialChildStep.titel = childStep.childName.nativeElement.value;
                     tutorialChildStep.description = childStep.childDescription.nativeElement.value;
-                    //post resource to server
-                    console.log("check if there is a selected file: " + childStep.resource.currentFileUpload);
-
                     tutorialStep.tutorialChildSteps.push(tutorialChildStep);
-
-
-                }
-               
+                }             
 
             }
             tutorial.steps.push(tutorialStep);
@@ -201,6 +185,9 @@ export class TutorialCreateComponent implements OnInit {
     }
     loadPreview(): void {
         this.preview = true;
+        this.snackBar.open("Diese Vorschau kann keine Navigationsbuttons sowie Ressourcen, zum Beispiel Bilder oder Videos, anzeigen. Wir bitten um Ihr Verständnis.","", {
+            duration: 10000,
+          });
     }
 
     closePreview(): void {

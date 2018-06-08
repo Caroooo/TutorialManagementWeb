@@ -24,6 +24,8 @@ import { FormUploadComponent } from './form-upload/form-upload.component';
 import { PreviewComponent } from './preview/preview.component';
 import { MenuComponent } from './menu/menu.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,7 +34,6 @@ const appRoutes: Routes = [
   { path: 'tutorial-step-create', component: TutorialStepCreateComponent },
   { path: 'tutorial-create', component: TutorialCreateComponent },
   { path: 'main/:user', component: MenuComponent }
-
 ];
 
 @NgModule({
@@ -75,7 +76,9 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule,
+    MatBadgeModule
   ],
   providers: [TutorialService, UserService],
   bootstrap: [AppComponent]

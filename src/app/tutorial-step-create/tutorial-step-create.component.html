@@ -9,10 +9,19 @@
             <textarea #stepDescription matInput type="password" placeholder="Kurze Beschreibung des Arbeitsschrittes. Gib hier eine kurze Anleitung des kompletten Arbeitsschrittes."></textarea>
         </mat-form-field>
         <div *ngFor="let s of steps">
+            <button *ngIf="s" (click)="removeStep()" mat-button class="removeButton" matTooltip="Detail-Arbeitsschritt entfernen">
+                <i class="material-icons">
+                    delete
+                </i>
+            </button>
             <tutorial-child-step-create #tutorialStepChildCreate *ngIf="s" [tutorialStepTitel]="getStepTitel()"></tutorial-child-step-create>
         </div>
         <p>Für ein gutes Tutorial macht es Sinn, den Arbeittschritt in kleinere Schritte zu unterteilen um ihn im Detail zu
-            beschreiben.</p>
-        <button (click)="loadChildStepCreate()" mat-button>Neuen Detail-Arbeitsschritt hinzufügen</button>
+            beschreiben.
+        </p>
+        <button (click)="loadChildStepCreate()" mat-button class="addStep">
+            Detail-Arbeitsschritt hinzufügen
+        </button>
     </div>
+
 </mat-card>

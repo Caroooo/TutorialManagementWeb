@@ -15,4 +15,32 @@
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+
   }
+
+.addStep{
+  background-color: #c2185b;
+  color: white;
+  border: none;
+  right: 5%;
+  position: absolute;
+
+}
+
+.removeButton{
+  position: absolute;
+  right: 5%;
+  margin: 1;
+  z-index: +1;
+}
+
+.preview{
+  position: absolute;
+  right: 10.25%;
+  margin: 8px;
+}
+
+.save{
+  position: absolute;
+  right: 5%;
+}
