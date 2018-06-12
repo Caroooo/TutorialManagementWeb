@@ -25,7 +25,6 @@ import { PreviewComponent } from './preview/preview.component';
 import { MenuComponent } from './menu/menu.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatBadgeModule} from '@angular/material/badge';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -77,8 +76,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatMenuModule,
     MatToolbarModule,
-    MatTooltipModule,
-    MatBadgeModule
+    MatTooltipModule
   ],
   providers: [TutorialService, UserService],
   bootstrap: [AppComponent]

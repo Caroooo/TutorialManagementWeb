@@ -1,5 +1,8 @@
 <mat-toolbar>
-    <button mat-button [matMenuTriggerFor]="menu" class="menu"  matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+ <!--   <i class="material-icons md-18 menuHelp blink">
+        info
+    </i>-->
+    <button mat-button [matMenuTriggerFor]="menu" class="menu">
         <i class="material-icons">
             menu
         </i>
@@ -7,8 +10,7 @@
     <span class="toolbar"></span>
 
 
-
-    <button mat-button [matMenuTriggerFor]="account" class="account"  matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+    <button mat-button [matMenuTriggerFor]="account" class="account" matBadge="8" matBadgePosition="before" matBadgeColor="accent">
 
         <i class="material-icons">
             account_circle
@@ -46,6 +48,8 @@
         </button>
     </mat-menu>
 </mat-toolbar>
+<!--
+<p class="speech">SitePoint Rocks!</p>-->
 
 <div *ngIf="!tutorialAvailable">
     <tutorial-create *ngIf="create"></tutorial-create>
@@ -55,7 +59,7 @@
 <div *ngIf="!tutorialAvailable">
     <div *ngIf="!create">
         <mat-card>
-            <h1>Die Maschine Arbeitet. Es kann daher momentan kein Tutorial durgeführt werden</h1>
+            <h1>Die Maschine arbeitet. Es kann daher momentan kein Tutorial durgeführt werden.</h1>
         </mat-card>
     </div>
 </div>
