@@ -1,12 +1,13 @@
-import {TutorialStep} from './tutorial-step';
-import {TutorialStepCreateView} from './tutorial-step-create-view';
-import {Tutorial} from './tutorial';
-import {TutorialCreateView} from './tutorial-create-view';
-import {TutorialChildStep} from './tutorial-child-step';
-import {TutorialChildStepCreateView} from './tutorial-child-step-create-view';
+import {InstructionStep} from './instruction-step';
+import {InstructionStepCreateView} from './instruction-step-create-view';
+import {Instruction} from './instruction';
+import {InstructionCreateView} from './instruction-create-view';
+import {InstructionChildStep} from './instruction-child-step';
+import {InstructionChildStepCreateView} from './instruction-child-step-create-view';
 import {Resource} from './resource';
 import {ResourceType} from './resource-type';
 import {User} from './user';
+import {InstructionType} from './instruction-type';
 
 
 

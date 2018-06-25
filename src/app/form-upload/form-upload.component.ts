@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
-import { TutorialService } from '../../services/tutorial-service';
+import { InstructionService } from '../../services/instruction-service';
 import { Resource } from '../../model/resource';
 import { Observable } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class FormUploadComponent implements OnInit {
   progress: { percentage: number } = { percentage: 0 };
   resourceId: number;
 
-  constructor(private tutorialService: TutorialService) {
+  constructor(private instructionService: InstructionService) {
     console.log("form-upload Constructor");
 
    }
@@ -37,11 +37,11 @@ export class FormUploadComponent implements OnInit {
 
     console.log("upload!")
 
-    var result = this.tutorialService.postResource(this.currentFileUpload);
+    var result = this.instructionService.postResource(this.currentFileUpload);
     this.currentFileUpload = undefined;
     return result;
 
-  /*  var result = this.tutorialService.postResourcePromise(this.currentFileUpload);
+  /*  var result = this.instructionService.postResourcePromise(this.currentFileUpload);
     this.currentFileUpload = undefined;
     return result;*/
   }

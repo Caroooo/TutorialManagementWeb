@@ -1,5 +1,5 @@
 <mat-card>
-    <h2>Neuer Arbeitsschritt für {{tutorialTitel}}</h2>
+    <h2>Neuer Arbeitsschritt für {{instructionTitel}}</h2>
     <div class="example-container">
 
         <mat-form-field>
@@ -14,9 +14,9 @@
                     delete
                 </i>
             </button>
-            <tutorial-child-step-create #tutorialStepChildCreate *ngIf="s" [tutorialStepTitel]="getStepTitel()"></tutorial-child-step-create>
+            <instruction-child-step-create #instructionStepChildCreate *ngIf="s" [instructionStepTitel]="getStepTitel()"></instruction-child-step-create>
         </div>
-        <p>Für ein gutes Tutorial macht es Sinn, den Arbeittschritt in kleinere Schritte zu unterteilen um ihn im Detail zu
+        <p>Für ein gutes Instruction macht es Sinn, den Arbeittschritt in kleinere Schritte zu unterteilen um ihn im Detail zu
             beschreiben.
         </p>
         <button (click)="loadChildStepCreate()" mat-button class="addStep">

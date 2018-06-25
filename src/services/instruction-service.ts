@@ -2,44 +2,46 @@ import { Injectable } from "@angular/core";
 import { Http, Response, ResponseType, ResponseContentType, RequestOptions, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/Rx";
-import { Tutorial } from "../model/tutorial";
+import { Instruction } from "../model/instruction";
 import { HttpClient, HttpHeaders, HttpEvent, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ResourceType } from "../model/resource-type";
 import { Resource } from "../model/resource";
-import { TutorialCreateView } from "../model/tutorial-create-view";
-import { TutorialStepCreateView } from "../model/tutorial-step-create-view";
-import { TutorialChildStepCreateView } from "../model/tutorial-child-step-create-view";
+import { InstructionCreateView } from "../model/instruction-create-view";
+import { InstructionStepCreateView } from "../model/instruction-step-create-view";
+import { InstructionChildStepCreateView } from "../model/instruction-child-step-create-view";
 import 'rxjs/add/operator/toPromise';
+import { InstructionType } from "../model/instruction-type";
 
 @Injectable()
-export class TutorialService {
+export class InstructionService {
 
-    private apiUrl = "http://localhost:8080/tutorials";
+  
+    private apiUrl = "http://localhost:8080/instructions";
 
     constructor(private http: Http, private httpClient: HttpClient) {
     }
 
-    postTutorial(tutorial: TutorialCreateView) {
+    postInstruction(instruction: InstructionCreateView) {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
         let options = new RequestOptions({ headers: headers });
-        console.log(JSON.stringify(tutorial));
-        return this.httpClient.post(this.apiUrl, tutorial).map((res: Response) => res.json())
+        console.log(JSON.stringify(instruction));
+        return this.httpClient.post(this.apiUrl, instruction).map((res: Response) => res.json())
             .catch(this.handleError).subscribe();
     }
 
-    getTutorials(): Observable<Tutorial[]> {
+    getInstructions(): Observable<Instruction[]> {
 
         return this.httpClient
             .get(this.apiUrl)
             .map((response: Response) => {
-                return <Tutorial[]>response.json();
+                return <Instruction[]>response.json();
             })
             .catch(this.handleError);
     }
 
-    getTutorialById(id: number): Observable<Tutorial> {
+    getInstructionById(id: number): Observable<Instruction> {
         return this.httpClient
             .get(this.apiUrl + "/" + id)
             .map((response: Response) => {
@@ -79,5 +81,14 @@ export class TutorialService {
     }
     private handleError(error: Response) {
         return Observable.throw(error.statusText);
+    }
+
+    getInstructionTypes() : Observable<InstructionType[]>{
+        return this.httpClient
+        .get(this.apiUrl + "/types")
+        .map((response: Response) => {
+            return response;
+        })
+        .catch(this.handleError);
     }
 }

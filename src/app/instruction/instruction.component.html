@@ -1,13 +1,13 @@
 <div>
   <mat-card>
     <mat-card>
-      <h2>{{tutorial?.titel}}</h2>
+      <h2>{{instruction?.titel}}</h2>
     </mat-card>
     <mat-accordion>
-      <mat-expansion-panel [expanded]="showLaymanInformation()" (opened)="increaseLaymanInformationCount()" (closed)="decreaseLaymanInformationCount()">
-        <mat-expansion-panel-header>
+      <mat-expansion-panel [expanded]="!isPro()" #expPanel>
+        <mat-expansion-panel-header (click)="expPanel.expanded?increaseCount():decreaseCount()">
           <mat-panel-title>
-            {{tutorial?.shortDescription}}
+            {{instruction?.shortDescription}}
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -15,12 +15,12 @@
           <ng-template matStepperIcon="edit">
             <mat-icon>check</mat-icon>
           </ng-template>
-          <mat-step *ngFor="let step of tutorial?.steps">
+          <mat-step *ngFor="let step of instruction?.steps">
             <ng-template matStepLabel>{{step.titel}}</ng-template>
             {{step.shortDescription}}
-            <mat-accordion *ngFor="let childStep of step.tutorialChildSteps">
-              <mat-expansion-panel [expanded]="showRookieInformation()" (opened)="increaseRookieInformationCount()" (closed)="decreaseRookieInformationCount()">
-                <mat-expansion-panel-header>
+            <mat-accordion *ngFor="let childStep of step.instructionChildSteps">
+              <mat-expansion-panel [expanded]="isRookie()" #pan>
+                <mat-expansion-panel-header (click)="pan.expanded?increaseCount():decreaseCount()">
                   <mat-panel-title>
                     {{childStep.titel}}
                   </mat-panel-title>
@@ -46,11 +46,11 @@
                 <i class="material-icons">
                   navigate_before
                 </i>
-                {{tutorial?.steps[stepper.selectedIndex-1].titel}}
+                {{instruction?.steps[stepper.selectedIndex-1].titel}}
               </button>
               <button *ngIf="hasNextStep()" mat-button matStepperNext matTooltip="Gehe zu nächstem Schritt">
 
-                {{tutorial?.steps[stepper.selectedIndex+1].titel}}
+                {{instruction?.steps[stepper.selectedIndex+1].titel}}
                 <i class="material-icons">
                   navigate_next
                 </i>

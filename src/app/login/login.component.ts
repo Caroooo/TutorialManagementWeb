@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     getUser(username: string, password: string): void {
         this.userService.getUserByCredentials(username, password).subscribe(resultArray => {
-            this.goToTutorial(resultArray);
+            this.goToInstruction(resultArray);
             this.snackBar.open("Hallo " + username, "", {
                 duration: 2000,
             });
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         )
     }
 
-    goToTutorial(user: User): void {
+    goToInstruction(user: User): void {
         this.router.navigate(['/main/' + user.id]);
     }
 }

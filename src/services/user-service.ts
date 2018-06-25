@@ -40,8 +40,12 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    updateInformationCount(user: User) {
-        this.httpClient.put(this.apiUrl + "/" + user.id +"?laymanInformation=" + user.laymanInformation + "&rookieInformation=" + user.rookieInformation,null)
+    updateInformationCount(id : number, knowledgeCount : number[], instructionType : string){
+        var valuesString = "";
+        for(let n of knowledgeCount){
+            valuesString = valuesString + "values="+n + "&";
+        }
+        this.httpClient.put(this.apiUrl + "/" + id +"/level?" + valuesString + "instructionType=" + instructionType,null)
             .map((response: Response) => {
                 return response;
             })

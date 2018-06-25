@@ -1,23 +1,30 @@
 <div [hidden]="preview">
     <mat-card>
-        <h1>Neues Tutorial hinzufügen</h1>
+        <h1>Neue Arbeitsanweisung hinzufügen</h1>
 
         <form>
             <div class="example-container">
 
                 <mat-form-field>
-                    <input #tutorialName matInput type="text" placeholder="Tutorial Titel">
+                    <input #instructionName matInput type="text" placeholder="Arbeitsanweisung Titel">
                 </mat-form-field>
                 <mat-form-field>
-                    <textarea #tutorialDescription matInput placeholder="Kurze Beschreibung. Was ist das Ziel dieses Tutorials?"></textarea>
+                    <textarea #instructionDescription matInput placeholder="Kurze Beschreibung. Was ist das Ziel dieser Arbeitsanweisung?"></textarea>
                 </mat-form-field>
+                <mat-form-field>
+                    <mat-select #instructionType placeholder="Typ">
+                      <mat-option *ngFor="let type of types" [value]="type.name">
+                        {{ type.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 <div *ngFor="let s of steps">
                     <button *ngIf="s" (click)="removeStep()" mat-button class="removeButton" matTooltip="Arbeitsschritt entfernen">
                         <i class="material-icons">
                             delete
                         </i>
                     </button>
-                    <tutorial-step-create #tutorialStepCreate *ngIf="s" [tutorialTitel]="getTutorialTitel()"></tutorial-step-create>
+                    <instruction-step-create #instructionStepCreate *ngIf="s" [instructionTitel]="getInstructionTitel()"></instruction-step-create>
                 </div>
                 <button (click)="loadStepCreate()" mat-button>
                     Arbeitsschritt hinzufügen
@@ -31,7 +38,7 @@
                     visibility
                 </i>
             </button>
-            <button (click)="submit()" mat-button matTooltip="Tutorial speichern" class="save">
+            <button (click)="submit()" mat-button matTooltip="Arbeitsanweisung speichern" class="save">
                 <i class="material-icons">
                     save
                 </i>
@@ -43,14 +50,14 @@
     </mat-card>
 </div>
 <div [hidden]="!preview">
-    <preview *ngIf="preview" [tutorialInput]="loadTutorial()"></preview>
+    <preview *ngIf="preview" [instructionInput]="loadInstruction()"></preview>
     <mat-card>
         <button (click)="closePreview()" mat-button matTooltip="Vorschau schließen" class="preview">
             <i class="material-icons">
                 visibility_off
             </i>
         </button>
-        <button (click)="submit()" mat-button matTooltip="Tutorial speichern" class="save">
+        <button (click)="submit()" mat-button matTooltip="Arbeitsanweisung speichern" class="save">
             <i class="material-icons">
                 save
             </i>

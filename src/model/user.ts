@@ -1,12 +1,12 @@
+import { InstructionType } from "./instruction-type";
+import { LevelMapping } from "./level-mapping";
 
 export class User {
     id: number;
     userName: string;
     password: string;
-    laymanInformation: number;
-    rookieInformation: number;
     canRead: boolean;
     canWrite: boolean;
     isFirstVisit: boolean;
-
+    level: Map<string, LevelMapping>;
   }

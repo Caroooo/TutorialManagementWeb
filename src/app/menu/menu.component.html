@@ -20,11 +20,11 @@
 
 
     <mat-menu #menu="matMenu">
-        <button *ngIf="hasWriteRights()" mat-menu-item (click)="goToCreateTutorial()">
+        <button *ngIf="hasWriteRights()" mat-menu-item (click)="goToCreateInstruction()">
             <i class="material-icons">
                 create
             </i>
-            Tutorial hinzufügen
+            Arbeitsanweisung hinzufügen
         </button>
         <button mat-menu-item (click)="goBack()">
             <i class="material-icons">
@@ -32,11 +32,11 @@
             </i>
             Startseite
         </button>
-        <button mat-menu-item (click)="showTutorial()">
+        <button mat-menu-item (click)="showInstruction()">
             <i class="material-icons">
                 live_tv
             </i>
-            Beispiel Tutorial ansehen
+            Beispiel ansehen
         </button>
     </mat-menu>
     <mat-menu #account="matMenu">
@@ -51,15 +51,15 @@
 <!--
 <p class="speech">SitePoint Rocks!</p>-->
 
-<div *ngIf="!tutorialAvailable">
-    <tutorial-create *ngIf="create"></tutorial-create>
+<div *ngIf="!instructionAvailable">
+    <instruction-create *ngIf="create"></instruction-create>
 </div>
-<app-tutorial *ngIf="tutorialAvailable" [user]=user></app-tutorial>
+<app-instruction *ngIf="instructionAvailable" [user]=user></app-instruction>
 
-<div *ngIf="!tutorialAvailable">
+<div *ngIf="!instructionAvailable">
     <div *ngIf="!create">
         <mat-card>
-            <h1>Die Maschine arbeitet. Es kann daher momentan kein Tutorial durgeführt werden.</h1>
+            <h1>Die Maschine arbeitet. Es können daher momentan keine Arbeitsanweisungen an dieser Maschine durgeführt werden.</h1>
         </mat-card>
     </div>
 </div>

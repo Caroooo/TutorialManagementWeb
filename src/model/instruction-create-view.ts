@@ -1,9 +1,10 @@
-import { TutorialStepCreateView } from './tutorial-step-create-view';
+import { InstructionStepCreateView } from './instruction-step-create-view';
 
-export class TutorialCreateView {
+export class InstructionCreateView {
     titel: string;
     shortDescription: string;
-    steps: TutorialStepCreateView[];
+    instructionType: string;
+    steps: InstructionStepCreateView[];
    
    public toString(): string {
       let result = "{\"titel\": \""+this.titel+"\", \"shortDescription\": \""+this.shortDescription+"\", \"steps\": [";
@@ -17,9 +18,4 @@ export class TutorialCreateView {
       return result;
     }
 
-    public toJSON(){
-      console.log("custom toJSON user for tutorial");
-      console.log(this.steps);
-      return {titel: this.titel, shortDescription: this.shortDescription, steps: this.steps};
-    }
   }

@@ -1,5 +1,5 @@
 
-export class TutorialChildStepCreateView {
+export class InstructionChildStepCreateView {
     titel: string;
     description: string;
     resourceId: number;

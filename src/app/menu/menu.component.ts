@@ -13,7 +13,7 @@ export class MenuComponent implements OnInit {
 
     create: boolean = false;
     account: boolean = false;
-    tutorialAvailable: boolean = false;
+    instructionAvailable: boolean = false;
 
     constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
         this.route.params.subscribe(params => this.getUser(params['user']));
@@ -23,17 +23,17 @@ export class MenuComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    goToCreateTutorial(): void {
+    goToCreateInstruction(): void {
         this.account = false;
         this.create = true;
-        this.tutorialAvailable = false;
+        this.instructionAvailable = false;
 
     }
 
     goBack(): void {
         this.create = false;
         this.account = false;
-        this.tutorialAvailable = false;
+        this.instructionAvailable = false;
     }
 
     getUser(id: number): void {
@@ -59,9 +59,9 @@ export class MenuComponent implements OnInit {
         this.account = true;
     }
 
-    showTutorial() {
+    showInstruction() {
         this.create = false;
         this.account = false;
-        this.tutorialAvailable = true;
+        this.instructionAvailable = true;
     }
 }

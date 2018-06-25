@@ -1,12 +1,12 @@
 <div>
     <mat-card>
-      <h2>{{tutorial?.titel}}</h2>
+      <h2>{{instruction?.titel}}</h2>
     </mat-card>
     <mat-accordion>
       <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{tutorial?.shortDescription}}
+            {{instruction?.shortDescription}}
           </mat-panel-title>
         </mat-expansion-panel-header>
   
@@ -14,7 +14,7 @@
           <ng-template matStepperIcon="edit">
             <mat-icon>check</mat-icon>
           </ng-template>
-          <mat-step *ngFor="let step of tutorial?.steps">
+          <mat-step *ngFor="let step of instruction?.steps">
             <ng-template matStepLabel>{{step.titel}}</ng-template>  
   
             <mat-accordion>
@@ -24,7 +24,7 @@
                     {{step.shortDescription}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-accordion *ngFor="let childStep of step.tutorialChildSteps">
+                <mat-accordion *ngFor="let childStep of step.instructionChildSteps">
                   <mat-expansion-panel [expanded]="true">
                     <mat-expansion-panel-header>
                       <mat-panel-title>

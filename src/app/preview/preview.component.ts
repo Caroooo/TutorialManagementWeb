@@ -2,16 +2,16 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { TutorialService } from '../../services/tutorial-service'
-import { Tutorial } from '../../model/tutorial';
+import { InstructionService } from '../../services/instruction-service'
+import { Instruction } from '../../model/instruction';
 import { Resource } from '../../model/resource';
 import { ResourceType } from '../../model/resource-type';
 import { MatStepper, MatSnackBar } from '@angular/material';
-import { TutorialStep } from '../../model/tutorial-step';
+import { InstructionStep } from '../../model/instruction-step';
 import { Observable } from 'rxjs';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { AsyncPipe } from '@angular/common';
-import { TutorialChildStep } from '../../model/tutorial-child-step';
+import { InstructionChildStep } from '../../model/instruction-child-step';
 import { VideoComponent } from '../video/video.component';
 
 
@@ -22,22 +22,22 @@ import { VideoComponent } from '../video/video.component';
 })
 export class PreviewComponent implements OnInit {
   @ViewChild('stepper') stepper;
-  @Input() tutorialInput: Tutorial;
+  @Input() instructionInput: Instruction;
 
   stepStates: boolean[];
   stepsInitializied: boolean = false;
   resourceContent: string[] = new Array();
   resources: Resource[];
-  tutorial: Tutorial;
+  instruction: Instruction;
 
 
-  constructor(private domSanitizer: DomSanitizer, private _formBuilder: FormBuilder, private tutorialService: TutorialService, public snackBar: MatSnackBar) {
+  constructor(private domSanitizer: DomSanitizer, private _formBuilder: FormBuilder, private instructionService: InstructionService, public snackBar: MatSnackBar) {
 
   }
 
   ngOnInit() {
-    //this.getTutorialById(1);
-    this.init(this.tutorialInput);
+    //this.getInstructionById(1);
+    this.init(this.instructionInput);
 
   }
 
@@ -52,17 +52,17 @@ export class PreviewComponent implements OnInit {
     }
   }
 
-  initResourceContent(tutorial: Tutorial) {
+  initResourceContent(instruction: Instruction) {
     this.resourceContent = new Array();
     var i: number;
-    if (tutorial.steps != null) {
-      var length: number = tutorial.steps.length;
+    if (instruction.steps != null) {
+      var length: number = instruction.steps.length;
 
       //calc absolut number of childsteps
       var absolut: number = length;
       for (i = 0; i < length; i++) {
-        if (tutorial.steps[i].tutorialChildSteps != null) {
-          absolut = absolut + tutorial.steps[i].tutorialChildSteps.length;
+        if (instruction.steps[i].instructionChildSteps != null) {
+          absolut = absolut + instruction.steps[i].instructionChildSteps.length;
         }
       }
       //fill in resources in resources array
@@ -71,9 +71,9 @@ export class PreviewComponent implements OnInit {
       var g: number = 0;
       while (g < this.resources.length) {
         for (i = 0; i < length; i++) {
-          if (tutorial.steps[i].tutorialChildSteps != null) {
-            for (j = 0; j < tutorial.steps[i].tutorialChildSteps.length; j++) {
-              this.resources[g] = tutorial.steps[i].tutorialChildSteps[j].resource;
+          if (instruction.steps[i].instructionChildSteps != null) {
+            for (j = 0; j < instruction.steps[i].instructionChildSteps.length; j++) {
+              this.resources[g] = instruction.steps[i].instructionChildSteps[j].resource;
               g = g + 1;
             }
           }
@@ -87,16 +87,16 @@ export class PreviewComponent implements OnInit {
   }
 
 
-  getTutorialById(id: number): void {
-    this.tutorialService.getTutorialById(id).subscribe(
+  getInstructionById(id: number): void {
+    this.instructionService.getInstructionById(id).subscribe(
       resultArray => this.init(resultArray),
       error => console.log("Error :: " + error)
     )
   }
 
-  init(tutorial: Tutorial) {
-    this.tutorial = tutorial;
-   // this.initResourceContent(tutorial);
+  init(instruction: Instruction) {
+    this.instruction = instruction;
+   // this.initResourceContent(instruction);
   }
 
   hasPrevStep(): boolean {
@@ -119,18 +119,18 @@ export class PreviewComponent implements OnInit {
     return false;
   }
   done(): void {
-    this.snackBar.open("Danke! Das Tutorial wurde abgeschlossen.","", {
+    this.snackBar.open("Danke! Das Instruction wurde abgeschlossen.","", {
       duration: 2000,
     });
   }
   showFile(resource: Resource, index: number) {
     if (resource != null) {
-      this.tutorialService.getResourceFile(resource.id).subscribe(data => {
+      this.instructionService.getResourceFile(resource.id).subscribe(data => {
         this.resourceContent[index] = data;
       });
     }
   }
-  hasResource(childStep: TutorialChildStep): boolean {
+  hasResource(childStep: InstructionChildStep): boolean {
     if (childStep != null) {
       if (childStep.resource != null) {
         return true;

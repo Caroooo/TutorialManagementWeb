@@ -1,26 +1,26 @@
 import { OnInit, Component, ViewChild, ElementRef, Input, ViewChildren, QueryList } from "@angular/core";
-import { Tutorial } from "../../model/tutorial";
+import { Instruction } from "../../model/instruction";
 import { Resource } from "../../model/resource";
 import { FormBuilder } from "@angular/forms";
-import { TutorialService } from "../../services/tutorial-service";
-import { TutorialChildStepCreateComponent } from "../tutorial-child-step-create/tutorial-child-step-create.component";
+import { InstructionService } from "../../services/instruction-service";
+import { InstructionChildStepCreateComponent } from "../instruction-child-step-create/instruction-child-step-create.component";
 
 @Component({
-    selector: 'tutorial-step-create',
-    templateUrl: './tutorial-step-create.component.html',
-    styleUrls: ['./tutorial-step-create.component.css']
+    selector: 'instruction-step-create',
+    templateUrl: './instruction-step-create.component.html',
+    styleUrls: ['./instruction-step-create.component.css']
   })
-  export class TutorialStepCreateComponent implements OnInit {
+  export class InstructionStepCreateComponent implements OnInit {
     
     @ViewChild('stepName') stepName: ElementRef;
     @ViewChild('stepDescription') stepDescription: ElementRef;
-    @ViewChildren('tutorialStepChildCreate') tutorialStepChildCreate : QueryList<TutorialChildStepCreateComponent>;
-    @Input() tutorialTitel: string;
+    @ViewChildren('instructionStepChildCreate') instructionStepChildCreate : QueryList<InstructionChildStepCreateComponent>;
+    @Input() instructionTitel: string;
 
     steps: boolean[];
     index: number = 0;
 
-    constructor(private _formBuilder: FormBuilder, private tutorialService: TutorialService) {
+    constructor(private _formBuilder: FormBuilder, private instructionService: InstructionService) {
       this.steps = new Array();
       this.steps[0] = false;
     }
