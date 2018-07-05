@@ -17,55 +17,55 @@
           </ng-template>
           <mat-step *ngFor="let step of instruction?.steps">
             <ng-template matStepLabel>{{step.titel}}</ng-template>
-            {{step.shortDescription}}
-            <mat-accordion *ngFor="let childStep of step.instructionChildSteps">
-              <mat-expansion-panel [expanded]="isRookie()" #pan>
-                <mat-expansion-panel-header (click)="pan.expanded?increaseCount():decreaseCount()">
-                  <mat-panel-title>
-                    {{childStep.titel}}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <p>
-                  <mat-grid-list cols="2" rowHeight="4:1">
-                    <mat-grid-tile>
-                      <div *ngIf="hasResource(childStep)">
-                        <resource file={{resourceContent[getIdOfResourceContent(childStep.resource)]}} [type]="childStep.resource.resourceType"></resource>
-                      </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                      <div>
-                        <p>{{childStep.description}} </p>
-                      </div>
-                    </mat-grid-tile>
-                  </mat-grid-list>
-                </p>
-              </mat-expansion-panel>
-            </mat-accordion>
-            <div>
-              <button *ngIf="hasPrevStep()" mat-button matStepperPrevious matTooltip="Gehe zu vorherigem Schritt">
-                <i class="material-icons">
-                  navigate_before
-                </i>
-                {{instruction?.steps[stepper.selectedIndex-1].titel}}
-              </button>
-              <button *ngIf="hasNextStep()" mat-button matStepperNext matTooltip="Gehe zu nächstem Schritt">
+           {{step.shortDescription}}
+              <mat-accordion *ngFor="let childStep of step.instructionChildSteps">
+                <mat-expansion-panel [expanded]="isRookie()" #pan>
+                  <mat-expansion-panel-header (click)="pan.expanded?increaseCount():decreaseCount()">
+                    <mat-panel-title>
+                      {{childStep.titel}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p>
+                    <mat-grid-list cols="2" rowHeight="4:1">
+                      <mat-grid-tile>
+                        <div *ngIf="hasResource(childStep)">
+                          <resource file={{resourceContent[getIdOfResourceContent(childStep.resource)]}} [type]="childStep.resource.resourceType"></resource>
+                        </div>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <div>
+                          <p>{{childStep.description}} </p>
+                        </div>
+                      </mat-grid-tile>
+                    </mat-grid-list>
+                  </p>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <div>
+                <button *ngIf="hasPrevStep()" mat-button matStepperPrevious matTooltip="Gehe zu vorherigem Schritt">
+                  <i class="material-icons">
+                    navigate_before
+                  </i>
+                  {{instruction?.steps[stepper.selectedIndex-1].titel}}
+                </button>
+                <button *ngIf="hasNextStep()" mat-button matStepperNext matTooltip="Gehe zu nächstem Schritt">
 
-                {{instruction?.steps[stepper.selectedIndex+1].titel}}
-                <i class="material-icons">
-                  navigate_next
-                </i>
-              </button>
-              <button *ngIf="isLastStep()" mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Tutorial abschließen!">
-                <i class="material-icons">
-                  done
-                </i>
-              </button>
-            </div>
+                  {{instruction?.steps[stepper.selectedIndex+1].titel}}
+                  <i class="material-icons">
+                    navigate_next
+                  </i>
+                </button>
+                <button *ngIf="isLastStep()" mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Arbeitsanweisung abschließen!">
+                  <i class="material-icons">
+                    done
+                  </i>
+                </button>
+              </div>
           </mat-step>
         </mat-horizontal-stepper>
       </mat-expansion-panel>
     </mat-accordion>
-    <button mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Tutorial abschließen!" class="done">
+    <button mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Arbeitsanweisung abschließen!" class="done">
       <i class="material-icons">
         done
       </i>

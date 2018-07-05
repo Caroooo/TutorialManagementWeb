@@ -39,7 +39,7 @@ export class InstructionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getInstructionById(6);
+    this.getInstructionById(382);
 
   }
 
@@ -94,6 +94,7 @@ export class InstructionComponent implements OnInit {
     this.instructionService.getInstructionById(id)
       .subscribe(
         result => {
+          console.log(result);
           this.init(result);
         },
         error => console.log("Error :: " + error)

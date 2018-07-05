@@ -1,5 +1,5 @@
 <mat-toolbar>
- <!--   <i class="material-icons md-18 menuHelp blink">
+    <!--   <i class="material-icons md-18 menuHelp blink">
         info
     </i>-->
     <button mat-button [matMenuTriggerFor]="menu" class="menu">
@@ -48,8 +48,6 @@
         </button>
     </mat-menu>
 </mat-toolbar>
-<!--
-<p class="speech">SitePoint Rocks!</p>-->
 
 <div *ngIf="!instructionAvailable">
     <instruction-create *ngIf="create"></instruction-create>
@@ -59,7 +57,19 @@
 <div *ngIf="!instructionAvailable">
     <div *ngIf="!create">
         <mat-card>
-            <h1>Die Maschine arbeitet. Es können daher momentan keine Arbeitsanweisungen an dieser Maschine durgeführt werden.</h1>
+            <mat-grid-list cols="2" rowHeight="2:1">
+                <mat-grid-tile>
+                    <div>
+                        <b class="defaultMsg">Es gibt nichts zu tun.</b>
+                        <br/>
+                        <div class="text-inside-grid">Die Maschinen läuft gerade. Es gibt daher momentan nichts zu tun.</div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <img src="{{workingMachine}}" alt="" style="max-width:250px" />
+                </mat-grid-tile>
+
+            </mat-grid-list>
         </mat-card>
     </div>
 </div>

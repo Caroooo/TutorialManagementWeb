@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Response, ResponseType, ResponseContentType, RequestOptions, Headers } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import "rxjs/Rx";
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
 import { Instruction } from "../model/instruction";
 import { HttpClient, HttpHeaders, HttpEvent, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ResourceType } from "../model/resource-type";
@@ -58,7 +59,7 @@ export class InstructionService {
     getResource(resourceId: number): Observable<Resource> {
         return this.httpClient
             .get(this.apiUrl + "/resources/" + resourceId).map((response: Response) => {
-                return response;
+                return <Resource> response.json();
             })
             .catch(this.handleError);;
     }
@@ -87,7 +88,7 @@ export class InstructionService {
         return this.httpClient
         .get(this.apiUrl + "/types")
         .map((response: Response) => {
-            return response;
+            return <InstructionType[]> response.json();
         })
         .catch(this.handleError);
     }

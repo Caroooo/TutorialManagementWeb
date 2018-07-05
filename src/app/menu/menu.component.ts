@@ -14,6 +14,7 @@ export class MenuComponent implements OnInit {
     create: boolean = false;
     account: boolean = false;
     instructionAvailable: boolean = false;
+    workingMachine = "/assets/zahnrad.gif";
 
     constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
         this.route.params.subscribe(params => this.getUser(params['user']));

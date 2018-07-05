@@ -10,6 +10,7 @@ import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { HttpModule } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { ResourceComponent } from '../app/resource/resource.component';
 import { VideoComponent } from './video/video.component';

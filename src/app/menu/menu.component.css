@@ -67,4 +67,15 @@
     border-color: #666 transparent transparent #666;
   }
 
+  .defaultMsg{
+    color: #18c27e;
+    text-align:left !important;
+    font-size: 35px; 
+  }
+  mat-grid-tile{
+    align-content: flex-start !important;
+    justify-content: flex-start !important;
+  }
   
+
+ 
