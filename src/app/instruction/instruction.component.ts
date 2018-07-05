@@ -94,7 +94,6 @@ export class InstructionComponent implements OnInit {
     this.instructionService.getInstructionById(id)
       .subscribe(
         result => {
-          console.log(result);
           this.init(result);
         },
         error => console.log("Error :: " + error)

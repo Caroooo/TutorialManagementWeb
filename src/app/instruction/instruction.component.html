@@ -11,7 +11,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <mat-horizontal-stepper #stepper>
+        <mat-vertical-stepper #stepper>
           <ng-template matStepperIcon="edit">
             <mat-icon>check</mat-icon>
           </ng-template>
@@ -62,7 +62,7 @@
                 </button>
               </div>
           </mat-step>
-        </mat-horizontal-stepper>
+        </mat-vertical-stepper>
       </mat-expansion-panel>
     </mat-accordion>
     <button mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Arbeitsanweisung abschließen!" class="done">
