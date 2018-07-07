@@ -37,7 +37,7 @@ export class InstructionService {
         return this.httpClient
             .get(this.apiUrl)
             .map((response: Response) => {
-                return <Instruction[]>response.json();
+                return response;
             })
             .catch(this.handleError);
     }
@@ -59,7 +59,7 @@ export class InstructionService {
     getResource(resourceId: number): Observable<Resource> {
         return this.httpClient
             .get(this.apiUrl + "/resources/" + resourceId).map((response: Response) => {
-                return <Resource> response.json();
+                return response
             })
             .catch(this.handleError);;
     }
@@ -88,7 +88,7 @@ export class InstructionService {
         return this.httpClient
         .get(this.apiUrl + "/types")
         .map((response: Response) => {
-            return <InstructionType[]> response.json();
+            return response;
         })
         .catch(this.handleError);
     }

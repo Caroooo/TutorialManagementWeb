@@ -39,7 +39,9 @@ export class InstructionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getInstructionById(382);
+    this.getInstructionById(22);
+   // this.getInstructionById(106);
+
 
   }
 
