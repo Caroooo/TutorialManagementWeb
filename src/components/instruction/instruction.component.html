@@ -1,23 +1,27 @@
 <div>
   <mat-card>
-    <mat-card>
-      <h2>{{instruction?.titel}}</h2>
-    </mat-card>
-    <mat-accordion>
-      <mat-expansion-panel [expanded]="!isPro()" #expPanel>
-        <mat-expansion-panel-header (click)="expPanel.expanded?increaseCount():decreaseCount()">
-          <mat-panel-title>
-            {{instruction?.shortDescription}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+    <mat-card-header>
+      <mat-card-title>{{instruction?.titel}}</mat-card-title>
+      <mat-card-subtitle>{{instruction?.shortDescription}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="!isPro()" #expPanel (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false">
+          <mat-expansion-panel-header (click)="expPanel.expanded?increaseCount():decreaseCount()">
+            <mat-panel-description>
+              Zeig mir {{panelOpenState ? 'weniger' : 'mehr'}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-        <mat-vertical-stepper #stepper>
-          <ng-template matStepperIcon="edit">
-            <mat-icon>check</mat-icon>
-          </ng-template>
-          <mat-step *ngFor="let step of instruction?.steps">
-            <ng-template matStepLabel>{{step.titel}}</ng-template>
-           {{step.shortDescription}}
+          <mat-vertical-stepper #stepper>
+            <ng-template matStepperIcon="edit">
+              <mat-icon>check</mat-icon>
+            </ng-template>
+            <mat-step *ngFor="let step of instruction?.steps">
+              <ng-template matStepLabel>{{step.titel}}</ng-template>
+              <p>{{step.shortDescription}} </p>
+              <br>
               <mat-accordion *ngFor="let childStep of step.instructionChildSteps">
                 <mat-expansion-panel [expanded]="isRookie()" #pan>
                   <mat-expansion-panel-header (click)="pan.expanded?increaseCount():decreaseCount()">
@@ -46,11 +50,8 @@
                   <i class="material-icons">
                     navigate_before
                   </i>
-                  {{instruction?.steps[stepper.selectedIndex-1].titel}}
                 </button>
                 <button *ngIf="hasNextStep()" mat-button matStepperNext matTooltip="Gehe zu nächstem Schritt">
-
-                  {{instruction?.steps[stepper.selectedIndex+1].titel}}
                   <i class="material-icons">
                     navigate_next
                   </i>
@@ -61,18 +62,19 @@
                   </i>
                 </button>
               </div>
-          </mat-step>
-        </mat-vertical-stepper>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <button mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Arbeitsanweisung abschließen!" class="done">
-      <i class="material-icons">
-        done
-      </i>
+            </mat-step>
+          </mat-vertical-stepper>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <button mat-button matStepperSubmit (click)="done()" matTooltip="Fertig! Arbeitsanweisung abschließen!" class="done">
+        <i class="material-icons">
+          done
+        </i>
 
-    </button>
-    <br>
-    <br>
-    <br>
+      </button>
+      <br>
+      <br>
+      <br>
+    </mat-card-content>
   </mat-card>
 </div>

@@ -21,7 +21,7 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/videogular2/fonts/videogular.css"
             ],
             "scripts": []
@@ -72,7 +72,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/videogular2/fonts/videogular.css"
             ],
             "assets": [

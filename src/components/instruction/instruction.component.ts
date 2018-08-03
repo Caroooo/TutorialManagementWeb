@@ -40,7 +40,7 @@ export class InstructionComponent implements OnInit {
 
   ngOnInit() {
     this.getInstructionById(22);
-   // this.getInstructionById(106);
+    // this.getInstructionById(106);
 
 
   }
@@ -108,21 +108,27 @@ export class InstructionComponent implements OnInit {
   }
 
   hasPrevStep(): boolean {
-    if (this.stepper.selectedIndex > 0) {
-      return true;
+    if (this.stepper != undefined) {
+      if (this.stepper.selectedIndex > 0) {
+        return true;
+      }
     }
     return false;
   }
 
   hasNextStep(): boolean {
-    if (this.stepper.selectedIndex < this.stepper._steps.length - 1) {
-      return true;
+    if (this.stepper != undefined) {
+      if (this.stepper.selectedIndex < this.stepper._steps.length - 1) {
+        return true;
+      }
     }
     return false;
   }
   isLastStep(): boolean {
-    if (this.stepper.selectedIndex === this.stepper._steps.length - 1) {
-      return true;
+    if (this.stepper != undefined) {
+      if (this.stepper.selectedIndex === this.stepper._steps.length - 1) {
+        return true;
+      }
     }
     return false;
   }

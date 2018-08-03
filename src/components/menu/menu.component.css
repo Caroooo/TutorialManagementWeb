@@ -13,60 +13,17 @@
 .toolbar {
     flex: 1 1 auto;
   }
+
+  .mat-toolbar{
+    background: #c2185b;    
+  }
 .material-icons.md-18 { font-size: 18px; }
 
 .material-icons {
     vertical-align: middle;
   }
 
-.menuHelp{
-  position: absolute;
-  left:4%;
-  top: 6%;
-  color: yellow;
-}
-  .blink {
-    animation: blink 2s steps(5, start) infinite;
-    -webkit-animation: blink 1s steps(5, start) infinite;
-  }
-  @keyframes blink {
-    to {
-      visibility: hidden;
-    }
-  }
-  @-webkit-keyframes blink {
-    to {
-      visibility: hidden;
-    }
-  }
-
-  p.speech {
-    position: relative;
-    width: 200px;
-    height: 100px;
-    text-align: center;
-    line-height: 100px;
-    background-color: #fff;
-    border: 8px solid #666;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
-    -webkit-box-shadow: 2px 2px 4px #888;
-    -moz-box-shadow: 2px 2px 4px #888;
-    box-shadow: 2px 2px 4px #888;
-  }
-
-  p.speech:before {
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 30px;
-    top: 100px;
-    border: 25px solid;
-    border-color: #666 transparent transparent #666;
-  }
-
+ 
   .defaultMsg{
     color: #18c27e;
     text-align:left !important;
@@ -77,5 +34,4 @@
     justify-content: flex-start !important;
   }
   
-
  

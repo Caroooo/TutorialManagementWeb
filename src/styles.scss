@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';*/
+@import '~@angular/material/theming';
+@include mat-core();
+$primary: mat-palette($mat-pink, 800);
+$accent: mat-palette($mat-blue, 600, 100, 800);
+$warn: mat-palette($mat-red, 600);
+$theme: mat-light-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+* {
+  margin:0;
+  padding:0;
+}
+body {
+  margin: 0;
+  font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial,
+    Lucida Grande, sans-serif;
+}
+
+
+
